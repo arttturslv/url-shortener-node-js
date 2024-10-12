@@ -16,6 +16,7 @@
   "author": "artur marcos",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "encurtador-url": "file:",
     "express": "^4.21.1",

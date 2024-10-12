@@ -7,6 +7,7 @@ config();
 
 
 const app = express();
+app.use(cors())
 app.use(express.json());
 
 app.get('/', (req, res) => {
@@ -64,6 +65,7 @@ mongoose.connect(process.env.MONGO_DB)
             console.log("Server is on 🔥")
         })
     ).catch((err)=> {
+        console.log("Erro na conexão com o mongo.");
         console.log(err);
     });
 
