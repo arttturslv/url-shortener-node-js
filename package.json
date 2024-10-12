@@ -8,8 +8,13 @@
     "start": "npm start"
   },
   "keywords": [
-    "shortens", "url", "node"
+    "shortens",
+    "url",
+    "node"
   ],
   "author": "artur marcos",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.1"
+  }
 }
