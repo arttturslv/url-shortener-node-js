@@ -3,13 +3,23 @@
   "version": "1.0.0",
   "description": "backend with node that shortens urls",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm start"
   },
   "keywords": [
-    "shortens", "url", "node"
+    "shortens",
+    "url",
+    "node"
   ],
   "author": "artur marcos",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "encurtador-url": "file:",
+    "express": "^4.21.1",
+    "mongoose": "^8.7.1",
+    "shortid": "^2.2.16"
+  }
 }
