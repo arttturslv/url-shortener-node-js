@@ -2,6 +2,7 @@ import express from "express";
 import { config } from "dotenv";
 import mongoose from "mongoose";
 import urlScheme from './models/url.js'
+import cors from 'cors'
 
 config();
 
