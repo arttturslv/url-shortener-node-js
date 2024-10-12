@@ -76,3 +76,6 @@ function isURLValid(url) {
         return false;
     }
 }
+
+
+export default app;
