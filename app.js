@@ -8,12 +8,16 @@ config();
 
 
 const app = express();
-app.use(cors())
+
+app.use(cors({
+    origin: '*',
+}));
 app.use(express.json());
 
 app.get('/', (req, res) => {
-    return "Hello World."
+    return res.send("Hello World.");
 });
+
 
 app.post('/', async (req, res) => {
     try {
@@ -51,7 +55,7 @@ app.get('/:urlEncurtada', async (req, res) => {
         }
     
         url.visitas++;
-        url.save();
+        await url.save();
         res.send(url);
 
     } catch (error) {
@@ -59,7 +63,7 @@ app.get('/:urlEncurtada', async (req, res) => {
         res.sendStatus(400)
     }
 });
-
+console.log(process.env.MONGO_DB)
 mongoose.connect(process.env.MONGO_DB)
     .then(() =>
         app.listen(3333, () => {
