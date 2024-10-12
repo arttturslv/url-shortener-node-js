@@ -1,10 +1,10 @@
 import express from "express";
-import { config as env_config } from "dotenv";
+import { config } from "dotenv";
 import mongoose from "mongoose";
 import urlScheme from './models/url.js'
 
-env_config();
-mongoose.connect(process.env.MONGO_DB);
+config();
+
 
 const app = express();
 app.use(express.json());
@@ -58,10 +58,14 @@ app.get('/:urlEncurtada', async (req, res) => {
     }
 });
 
-app.listen(process.env.PORT || 3333, () => {
-    console.log("Server is on fire.")
-});
-
+mongoose.connect(process.env.MONGO_DB)
+    .then(() =>
+        app.listen(3333, () => {
+            console.log("Server is on 🔥")
+        })
+    ).catch((err)=> {
+        console.log(err);
+    });
 
 function isURLValid(url) {
     try {
