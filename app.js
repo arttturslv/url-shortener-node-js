@@ -63,6 +63,21 @@ app.get('/:urlEncurtada', async (req, res) => {
         res.sendStatus(400)
     }
 });
+
+app.delete('/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        await urlScheme.findByIdAndDelete(id);
+
+        res.sendStatus(204)
+
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(404)
+    }
+})
+
+
 console.log(process.env.MONGO_DB)
 mongoose.connect(process.env.MONGO_DB)
     .then(() =>
