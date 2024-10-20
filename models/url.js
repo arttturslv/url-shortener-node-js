@@ -1,26 +1,26 @@
 import mongoose from "mongoose";
 import shortid from "shortid";
 
-const urlScheme = new mongoose.Schema({
-    original: {
+const URLScheme = new mongoose.Schema({
+    originalURL: {
         type: String,
         require: true
     },
-    encurtado: {
+    shortLinkId: {
         type: String,
         require: true,
         default: shortid.generate
     },
-    visitas: {
+    views: {
         type: Number,
         require: true,
         default:0
     },
-    data: {
+    date: {
         type: Date,
         require: true,
         default: new Date
     }
 });
 
-export default mongoose.model('urlScheme', urlScheme);
+export default mongoose.model('URLScheme', URLScheme);
