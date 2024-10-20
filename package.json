@@ -1,5 +1,5 @@
 {
-  "name": "encurtador-url",
+  "name": "url-shortener",
   "version": "1.0.0",
   "description": "backend with node that shortens urls",
   "main": "index.js",
@@ -21,6 +21,7 @@
     "encurtador-url": "file:",
     "express": "^4.21.1",
     "mongoose": "^8.7.1",
-    "shortid": "^2.2.16"
+    "shortid": "^2.2.16",
+    "url-shortener": "file:"
   }
 }
