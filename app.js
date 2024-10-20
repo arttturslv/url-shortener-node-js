@@ -1,11 +1,10 @@
 import express from "express";
 import { config } from "dotenv";
 import mongoose from "mongoose";
-import urlScheme from './models/url.js'
+import URLScheme from './models/url.js'
 import cors from 'cors'
 
 config();
-
 
 const app = express();
 
@@ -14,27 +13,21 @@ app.use(cors({
 }));
 app.use(express.json());
 
-app.get('/', (req, res) => {
-    return res.send("Hello World.");
-});
-
-
 app.post('/', async (req, res) => {
     try {
-        const urlOriginal = req.body.URL;
-        console.log(urlOriginal)
+        const originalURL = req.body.URL;
         
-        if(!urlOriginal) {
+        if(!originalURL) {
             console.log("Não é possivel completar a requisição, falta o paramentro 'URL': ", urlOriginal);
             return res.sendStatus(400);
         }
 
-        if(!isURLValid(urlOriginal)) {
+        if(!isURLValid(originalURL)) {
             console.log("Não é possivel completar a requisição, a URL é inválida: ", urlOriginal);
             return res.sendStatus(400);
         }
 
-        const url = await urlScheme.create({original:urlOriginal});
+        const url = await URLScheme.create({originalURL:originalURL});
         res.send(url);
 
     } catch (error) {
@@ -43,18 +36,18 @@ app.post('/', async (req, res) => {
     }
 });
 
-app.get('/:urlEncurtada', async (req, res) => {
+app.get('/:shortLinkId', async (req, res) => {
     try {
-        const urlEncurtada = req.params.urlEncurtada;
+        const shortLinkId = req.params.shortLinkId;
 
-        const url = await urlScheme.findOne({ encurtado: urlEncurtada});
+        const url = await URLScheme.findOne({ shortLinkId: shortLinkId});
     
         if(!url) {
-            console.log("Não existe a URL encurtada: ", urlEncurtada);
+            console.log("Não existe a URL encurtada: ", shortLinkId);
             return res.sendStatus(404);
         }
     
-        url.visitas++;
+        url.views++;
         await url.save();
         res.send(url);
 
@@ -67,8 +60,7 @@ app.get('/:urlEncurtada', async (req, res) => {
 app.delete('/:id', async (req, res) => {
     try {
         const id = req.params.id;
-        await urlScheme.findByIdAndDelete(id);
-
+        await URLScheme.findByIdAndDelete(id);
         res.sendStatus(204)
 
     } catch (error) {
@@ -77,8 +69,6 @@ app.delete('/:id', async (req, res) => {
     }
 })
 
-
-console.log(process.env.MONGO_DB)
 mongoose.connect(process.env.MONGO_DB)
     .then(() =>
         app.listen(3333, () => {
@@ -91,8 +81,8 @@ mongoose.connect(process.env.MONGO_DB)
 
 function isURLValid(url) {
     try {
-        const urlRecebida = url.startsWith('http://') || url.startsWith('https://') ? url : `http://${url}`;
-        new URL(urlRecebida)
+        const receivedURL = url.startsWith('http://') || url.startsWith('https://') ? url : `http://${url}`;
+        new URL(receivedURL)
         return true;
     } catch {
         return false;
